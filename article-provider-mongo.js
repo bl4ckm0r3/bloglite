@@ -27,6 +27,7 @@ ArticleProvider.prototype.findAll = function(callback){
 	});
 };
 
+
 ArticleProvider.prototype.findById = function(id,callback){
 	this.getCollection(function(error,article_collection){
 		if (error) callback(error)
