@@ -1,0 +1,26 @@
+include head
+div.navbar
+	div.navbar-inner
+		ul.nav
+			li 
+				a(href="/") Home
+			li
+				a(href="/blog/new") New Post
+			li.active
+				a(href="#") Search
+		include head-search	
+	div.container-fluid
+		div.row.span10#articles
+				-if (articles)
+					- each article in articles
+						div.article.row
+							div.span6
+								h3.title 
+									a(href="/blog/"+article._id)!= article.title 
+								div.span6
+									p.body= article.body
+								div.span4
+									small.created_at.pull-right= article.created_at
+				-else 
+					div
+						p.h3 No results :(

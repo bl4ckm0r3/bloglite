@@ -1,0 +1,41 @@
+include head
+div.navbar
+	div.navbar-inner
+		ul.nav
+			li 
+				a(href="/") Home
+			li
+				a(href="/blog/new") New Post
+			li.active
+				a(href="#") Show Post
+		include head-search				
+	div.container-fluid	
+		legend Add Comment > #{article.title} 
+			a.btn(href="/blog/"+article._id+"/edit") edit
+			a.btn(href="/blog/"+article._id+"/delete") delete
+
+		div.article
+			div.row.span10
+				div.body #{article.body}
+
+			- if (article.comments)
+				- each comment in article.comments
+					div.row.span10.offset1.comment
+						div.span6.person #{comment.person}
+								div.span6.comment #{comment.comment}
+
+		form.form-horizontal(method= "post",action='/blog/addComment')
+			div.control-group
+				div.controls
+					input(type="hidden",name="_id",value=article._id.toHexString())
+			div.control-group
+				label.control-label Author:
+				div.controls
+					input(type="text",name="person",id="addCommentPerson")
+			div.control-group
+				label.control-label Comment:
+				div.controls
+					textarea(name="comment",rows=5,id="addcommentComment")
+			div.control-group
+				div.controls#editArticleSubmit
+					button.btn(type="submit",value="Send") send

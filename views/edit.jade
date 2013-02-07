@@ -1,0 +1,25 @@
+include head
+div.navbar
+	div.navbar-inner
+		ul.nav
+			li 
+				a(href="/") Home
+			li
+				a(href="/blog/new") New Post
+			li.active
+				a(href="/blog/new") Edit
+		include head-search	
+	div.container-fluid
+		form.form-horizontal(method="post")
+			legend edit > #{pageTitle}
+			div.control-group
+				label.control-label Title
+				div.controls
+					input(type="text", name= "title", id="editArticleTitle", value="#{article.title}")
+			div.control-group
+				label.control-label Body
+				div.controls
+					textarea(name="body", rows=20,id="editArticleBody") #{article.body}
+			div.control-group
+				div.controls#editArticleSubmit
+					button.btn(type="submit",value="Send") Send

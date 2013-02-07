@@ -1,0 +1,23 @@
+include head
+div.navbar
+	div.navbar-inner
+		ul.nav
+			li 
+				a(href="/") Home
+			li.active
+				a(href="/blog/new") New Post
+		include head-search		
+	div.container-fluid			
+		form.form-horizontal(method="post")
+			legend New Post
+			div.control-group
+				label.control-label Title
+				div.controls
+					input(type="text",placeholder="Type something...",name="title",id="editArticleTitle")
+			div.control-group
+				label.control-label Body
+				div.controls
+					textarea(name="body", rows=4,id="editArticleBody")
+			div.control-group
+				div.controls
+					button.btn(type="submit",value="Send") Send
