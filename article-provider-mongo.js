@@ -4,9 +4,17 @@ var server = require('mongodb').Server;
 var bson = require('mongodb').BSON;
 var objectId = require('mongodb').ObjectID;
 
+/**
+Creating the Database
+**/
+
 ArticleProvider = function(host,port){
 	this.db = new db('node-mongo-blog', new server(host,port,{auto_reconnect:true},{}));
 };
+
+/**
+Getting the posts
+**/
 
 ArticleProvider.prototype.getCollection = function(callback) {
 	this.db.collection('articles',function(error,article_collection){
@@ -14,6 +22,10 @@ ArticleProvider.prototype.getCollection = function(callback) {
 		else callback(null, article_collection);
 	});
 };
+
+/**
+Getting all the posts, ordered by creation time.
+**/
 
 ArticleProvider.prototype.findAll = function(callback){
 	this.getCollection(function(error,article_collection){
@@ -27,6 +39,9 @@ ArticleProvider.prototype.findAll = function(callback){
 	});
 };
 
+/**
+Getting one post, by id
+**/
 
 ArticleProvider.prototype.findById = function(id,callback){
 	this.getCollection(function(error,article_collection){
@@ -40,6 +55,10 @@ ArticleProvider.prototype.findById = function(id,callback){
 		}
 	});
 }
+
+/**
+Search method to search posts, by the title
+**/
 
 ArticleProvider.prototype.findByTitle = function(string,callback){
 	//console.log("Stringa Cercata : " +string);
@@ -57,6 +76,10 @@ ArticleProvider.prototype.findByTitle = function(string,callback){
 			}
 	});
 }
+
+/**
+Saving one post
+**/
 
 ArticleProvider.prototype.save = function(articles,callback) {
 	this.getCollection(function(error,article_collection){
@@ -88,9 +111,9 @@ ArticleProvider.prototype.save = function(articles,callback) {
 	});
 }
 
-/*
-Update
-*/
+/**
+Update a post
+**/
 
 ArticleProvider.prototype.update = function(articleId,articles,callback){
 
@@ -110,6 +133,10 @@ this.getCollection(function(error,article_collection){
 
 }
 
+/**
+Deleting one post, by id
+**/
+
 ArticleProvider.prototype.delete = function (id,callback){
 	console.log('deleting');
 	this.getCollection(function(error,article_collection){
@@ -125,6 +152,10 @@ ArticleProvider.prototype.delete = function (id,callback){
 			}
 	});
 }
+
+/**
+Saving a comment to a post
+**/
 
 ArticleProvider.prototype.addCommentToArticle = function(articleId,comment,callback){
 	this.getCollection(function(error,article_collection){
@@ -147,5 +178,9 @@ ArticleProvider.prototype.addCommentToArticle = function(articleId,comment,callb
 			}
 	});
 }
+
+/**
+Exporting the model
+**/
 
 exports.ArticleProvider = ArticleProvider;

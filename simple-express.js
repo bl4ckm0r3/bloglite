@@ -65,7 +65,9 @@ app.get('/search',function(req,res){
 });
 
 
-//new post
+/** 
+new post
+**/
 app.get('/blog/new',function(req,res){
 	res.render("new_post.jade",{
 		pageTitle:"New Post"
@@ -81,6 +83,9 @@ app.post('/blog/new',function(req,res){
 	});
 });
 
+/**
+View one post
+**/
 app.get('/blog/:id',function(req,res){
 	articleProvider.findById(req.params.id,function(error,article){
 		res.render('blog_show.jade',{
@@ -89,6 +94,10 @@ app.get('/blog/:id',function(req,res){
 		});
 	});
 });
+
+/**
+Add a comment
+**/
 
 app.post('/blog/addComment',function(req,res){
 	articleProvider.addCommentToArticle(req.param('_id'),{
@@ -99,6 +108,10 @@ app.post('/blog/addComment',function(req,res){
 		res.redirect('/blog/'+req.param('_id'));
 	});
 });
+
+/**
+Edit a post
+**/
 
 app.get('/blog/:id/edit', function(req,res){
 	articleProvider.findById(req.params.id,function(error,article){
@@ -119,6 +132,10 @@ app.post('/blog/:id/edit',function(req,res){
 	});
 
 });
+
+/**
+Delete post
+**/
 
 app.get('/blog/:id/delete',function(req,res){
 
